@@ -5,8 +5,8 @@
 Print all numbers of a Fibonacci sequence up to an upper limit.
 """
 
-import os
 import sys
+
 
 def fibonacci(max_val):
     """ Generate a list of number following a Fibonacci sequence up to a maximum value (max_val)  """
@@ -25,10 +25,11 @@ def fibonacci(max_val):
 
     return seq
 
+
 def main():
     if len(sys.argv) > 2:
         raise IOError('This script only support 0 or 1 argument!')
-    
+
     if len(sys.argv) > 1:
         max_val = sys.argv[1]
     else:
@@ -37,7 +38,6 @@ def main():
     fibo_seq = fibonacci(max_val)
     print('Fibonacci sequence (up to {}) is:'.format(max_val))
     print('\t', fibo_seq)
-
 
 
 if __name__ == "__main__":

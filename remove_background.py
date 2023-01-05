@@ -36,6 +36,12 @@ def main():
     args = parser.parse_args()
     args.position = tuple(args.position)
 
+    if not os.path.exists(args.in_filename):
+        raise IOError('Input file does not exist!')
+
+    if os.path.exists(args.out_filename):
+        raise IOError('Output file already exists!')
+
     image = imageio.imread(args.in_filename)
     shape = image.shape[0:2] + (4,)
     tmp = np.average(image, axis=-1)
@@ -51,10 +57,10 @@ def main():
         binary_struct[0:3, 1] = 1
         binary_struct[1, 0:3] = 1
 
-        filled_image = flood_fill(tmp, args.position, 1000,
+        filled_image = flood_fill(tmp, args.position, 999,
                                   footprint=binary_struct, tolerance=1)
-        filled_image[filled_image != 1000] = 255
-        filled_image[filled_image == 1000] = 0
+        filled_image[filled_image != 999] = 255
+        filled_image[filled_image == 999] = 0
     else:
         filled_image = np.zeros(shape[0:2])
         filled_image[tmp == tmp[args.threshold]] = -1
